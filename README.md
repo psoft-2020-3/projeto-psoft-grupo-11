@@ -1,12 +1,12 @@
-# Estoque Facil - Sistema de Informação 1
+# Estoque Facil - Projeto de Software
 
-# Execução Local (Passos) do Backend
+## Execução Local (Passos) do Backend
 ### Spring Boot
 ```
 mvn spring-boot:run
 ```
 
-# Instalação das depedências do Frontend
+## Instalação das depedências do Frontend
 Para a instalação das dependências do AngularJS execute no terminal o seguinte comando:
 ```
 npm install
