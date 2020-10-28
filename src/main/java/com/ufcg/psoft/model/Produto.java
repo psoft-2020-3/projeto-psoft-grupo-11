@@ -1,4 +1,4 @@
-package com.ufcg.si1.model;
+package com.ufcg.psoft.model;
 
 import java.math.BigDecimal;
 

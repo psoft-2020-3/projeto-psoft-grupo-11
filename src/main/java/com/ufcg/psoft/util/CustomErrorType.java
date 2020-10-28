@@ -1,4 +1,4 @@
-package com.ufcg.si1.util;
+package com.ufcg.psoft.util;
 
 
 public class CustomErrorType {

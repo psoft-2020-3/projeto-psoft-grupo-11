@@ -1,12 +1,10 @@
-package com.ufcg.si1.controller;
+package com.ufcg.psoft.controller;
 
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.ufcg.si1.model.DTO.LoteDTO;
-import com.ufcg.si1.model.Lote;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.ufcg.si1.model.Produto;
-import com.ufcg.si1.service.LoteService;
-import com.ufcg.si1.service.LoteServiceImpl;
-import com.ufcg.si1.service.ProdutoService;
-import com.ufcg.si1.service.ProdutoServiceImpl;
-import com.ufcg.si1.util.CustomErrorType;
+import com.ufcg.psoft.model.Lote;
+import com.ufcg.psoft.model.Produto;
+import com.ufcg.psoft.model.DTO.LoteDTO;
+import com.ufcg.psoft.service.LoteService;
+import com.ufcg.psoft.service.LoteServiceImpl;
+import com.ufcg.psoft.service.ProdutoService;
+import com.ufcg.psoft.service.ProdutoServiceImpl;
+import com.ufcg.psoft.util.CustomErrorType;
 
 import exceptions.ObjetoInvalidoException;
 

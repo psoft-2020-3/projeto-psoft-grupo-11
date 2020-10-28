@@ -1,4 +1,4 @@
-package com.ufcg.si1.model.DTO;
+package com.ufcg.psoft.model.DTO;
 
 public class LoteDTO {
 

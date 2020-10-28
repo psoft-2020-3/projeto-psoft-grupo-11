@@ -1,4 +1,4 @@
-package com.ufcg.si1.service;
+package com.ufcg.psoft.service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,8 +7,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
-import com.ufcg.si1.model.Lote;
-import com.ufcg.si1.model.Produto;
+import com.ufcg.psoft.model.Lote;
+import com.ufcg.psoft.model.Produto;
 
 @Service("produtoService")
 public class ProdutoServiceImpl implements ProdutoService {

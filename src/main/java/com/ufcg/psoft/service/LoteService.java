@@ -1,9 +1,9 @@
-package com.ufcg.si1.service;
+package com.ufcg.psoft.service;
 
 import java.util.Iterator;
 import java.util.List;
 
-import com.ufcg.si1.model.Lote;
+import com.ufcg.psoft.model.Lote;
 
 public interface LoteService {
 
