@@ -6,11 +6,8 @@
 mvn spring-boot:run
 ```
 
-## Instalação das depedências do Frontend
-Para a instalação das dependências do AngularJS execute no terminal o seguinte comando:
+### Funcionalidades
+Para acessar as funcionalidades do sistema acesse
 ```
-npm install
+http://localhost:8080/swagger-ui.html
 ```
-Para mais informações da estrutura do AngularJS acesse o README na pasta **src/main/webapp**
- 
-
