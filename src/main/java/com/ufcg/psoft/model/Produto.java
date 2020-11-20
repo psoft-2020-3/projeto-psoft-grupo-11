@@ -2,10 +2,17 @@ package com.ufcg.psoft.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import exceptions.ObjetoInvalidoException;
 
+@Entity
 public class Produto {
 
+	@Id
+	@GeneratedValue
 	private long id;
 
 	private String nome;

@@ -1,8 +1,16 @@
 package com.ufcg.psoft.model;
 
-public class Lote {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
+@Entity
+public class Lote {
+	@Id
+	@GeneratedValue
     private long id;
+	@OneToOne
     private Produto produto;
     private int numeroDeItens;
     private String dataDeValidade;
