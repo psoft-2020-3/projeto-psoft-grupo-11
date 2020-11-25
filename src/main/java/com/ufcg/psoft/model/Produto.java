@@ -2,12 +2,25 @@ package com.ufcg.psoft.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import com.ufcg.psoft.model.Produto;
+
 import exceptions.ObjetoInvalidoException;
 
+
+@Entity
 public class Produto {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
+	
 	private String nome;
 
 	private BigDecimal preco;
@@ -16,7 +29,9 @@ public class Produto {
 
 	private String fabricante;
 
-	private String categoria;
+	@OneToOne
+	@JoinColumn(name = "id_categoria", referencedColumnName = "id")
+	private CategoriaDesconto categoria;
 
 	public int situacao; // usa variaveis estaticas abaixo
 	/* situacoes do produto */
@@ -28,22 +43,31 @@ public class Produto {
 		this.preco = new BigDecimal(0);
 	}
 
-	public Produto(long id, String nome, String codigoBarra, String fabricante,
-			String nomeCategoria) {
-		this.id = id;
+	public Produto(String nome, Double preco, String codigoBarra, String fabricante,
+			CategoriaDesconto categoria, int situacao) throws ObjetoInvalidoException {
+		super();
 		this.nome = nome;
-		this.preco = new BigDecimal(0);
+		this.preco = new BigDecimal(preco);
 		this.codigoBarra = codigoBarra;
 		this.fabricante = fabricante;
-		this.categoria = nomeCategoria;
-		this.situacao = Produto.INDISPONIVEL;
+		this.categoria = categoria;
+		this.mudaSituacao(situacao);
 	}
 
+	public long getId() {
+		return id;
+	}
+	
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
 
-	public void mudaNome(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
@@ -53,14 +77,6 @@ public class Produto {
 
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void mudaId(long codigo) {
-		this.id = codigo;
 	}
 
 	public String getFabricante() {
@@ -79,11 +95,11 @@ public class Produto {
 		this.codigoBarra = codigoBarra;
 	}
 
-	public String getCategoria() {
+	public CategoriaDesconto getCategoria() {
 		return this.categoria;
 	}
 
-	public void mudaCategoria(String categoria) {
+	public void mudaCategoria(CategoriaDesconto categoria) {
 		this.categoria = categoria;
 	}
 		
@@ -135,4 +151,10 @@ public class Produto {
 			return false;
 		return true;
 	}
+	
+	
+	public String toString() {
+		return this.id + " " + this.nome;
+	}
+	
 }

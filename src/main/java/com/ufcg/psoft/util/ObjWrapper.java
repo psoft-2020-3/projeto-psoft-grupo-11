@@ -18,4 +18,3 @@ public class ObjWrapper<T> implements Serializable {
     }
 
 }
-
