@@ -1,6 +1,6 @@
 package com.ufcg.psoft.model.DTO;
 
-// YALLY
+
 public class ProdutoInputDTO {
 	private String nome;
 

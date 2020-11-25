@@ -5,7 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +20,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.ufcg.psoft.model.Lote;
 import com.ufcg.psoft.model.Produto;
 import com.ufcg.psoft.model.DTO.LoteDTO;
+import com.ufcg.psoft.model.DTO.RelatorioDTO;
 import com.ufcg.psoft.service.LoteService;
 import com.ufcg.psoft.service.LoteServiceImpl;
 import com.ufcg.psoft.service.ProdutoService;
 import com.ufcg.psoft.service.ProdutoServiceImpl;
+import com.ufcg.psoft.service.RelatorioService;
 import com.ufcg.psoft.util.CustomErrorType;
 
 import exceptions.ObjetoInvalidoException;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api")
@@ -33,7 +38,20 @@ public class RestApiController {
 
 	ProdutoService produtoService = new ProdutoServiceImpl();
 	LoteService loteService = new LoteServiceImpl();
+	
+	@Autowired
+	RelatorioService relatorioService;
 
+	
+	// RELATORIO GERAL
+	@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	@ApiOperation(value = "Exibe o relatorio geral")
+	public ResponseEntity<RelatorioDTO> relatorio() {
+		RelatorioDTO relatorio = this.relatorioService.gerarRelatorio();
+		return new ResponseEntity<RelatorioDTO>(relatorio, HttpStatus.OK);
+	}
+	
+	
 	// -------------------Retrieve All
 	// Products---------------------------------------------
 
