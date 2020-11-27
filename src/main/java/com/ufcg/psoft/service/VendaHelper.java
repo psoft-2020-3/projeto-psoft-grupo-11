@@ -2,6 +2,7 @@ package com.ufcg.psoft.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,12 +13,11 @@ import org.springframework.stereotype.Service;
 import com.ufcg.psoft.model.Lote;
 import com.ufcg.psoft.model.Produto;
 import com.ufcg.psoft.model.VendaProduto;
+import com.ufcg.psoft.model.DTO.LoteVendaDTO;
 import com.ufcg.psoft.repositories.LoteRepository;
 import com.ufcg.psoft.repositories.ProdutoRepository;
 
 import exceptions.ObjetoInvalidoException;
-
-
 
 @Service
 public class VendaHelper {
@@ -57,15 +57,19 @@ public class VendaHelper {
 	}
 	
 	// CRIAR VENDA DO PRODUTO
-	public List<VendaProduto> criarVendaProduto(Map<Long, Integer> dadosVenda) {
+	public List<VendaProduto> criarVendaProduto(Map<Long, Integer> dadosVenda, Map<Long, LoteVendaDTO> lotes) {
 		List<VendaProduto> retorno = new ArrayList<>();
 		VendaProduto vendaProduto = new VendaProduto();
 		Produto produto = new Produto();
 
 		for (Map.Entry<Long, Integer> pair : dadosVenda.entrySet()) {
 			produto = this.produtoRepository.findById(pair.getKey()).get();
+			
 			vendaProduto.setProduto(produto);
 			vendaProduto.setQuantidade(pair.getValue());
+			vendaProduto.setLotes(lotes.get(pair.getKey()).getIdsLotes());
+			vendaProduto.setQtdPorLote(lotes.get(pair.getKey()).getQtdPorLote());
+			
 			retorno.add(vendaProduto);
 			vendaProduto = new VendaProduto();
 		}
@@ -74,33 +78,48 @@ public class VendaHelper {
 	}
 
 	// DECREMENTA PRODUTOS DOS LOTES
-	public void retiraProdutos(List<Produto> produtosDaVenda, Map<Long, Integer> dadosDaVenda) throws ObjetoInvalidoException {
+	public Map<Long, LoteVendaDTO> retiraProdutos(List<Produto> produtosDaVenda, Map<Long, Integer> dadosDaVenda) throws ObjetoInvalidoException {
 		List<Lote> lotesDoProduto;
+		List<Long> idsLotes;
+		List<Integer> qtdPorLote;
+		Map<Long, LoteVendaDTO> retorno = new HashMap<Long, LoteVendaDTO>();
+		LoteVendaDTO loteVendaDTO;
 		int qtdCount;
 		
 		for (Produto produto : produtosDaVenda) {
 			int index = 0;
+			qtdPorLote = new ArrayList<Integer>();
+			idsLotes = new ArrayList<Long>();
 			qtdCount = dadosDaVenda.get(produto.getId());
 			lotesDoProduto = this.loteRepository.findAllByProduto(produto);
 			
 			while (qtdCount > 0) {
 				Lote lote = lotesDoProduto.get(index);
+				idsLotes.add(lote.getId());
+				
 				if (lote.getNumeroDeItens() > qtdCount) {
 					lote.setNumeroDeItens(lote.getNumeroDeItens() - qtdCount);
+					qtdPorLote.add(qtdCount);
 					break;
 				} else {
 					qtdCount -= lote.getNumeroDeItens();
+					qtdPorLote.add(lote.getNumeroDeItens());
 					lote.setNumeroDeItens(0);
 				}
+				
 				this.loteRepository.save(lote);
 				index++;
 			}
 			
+			loteVendaDTO = new LoteVendaDTO(idsLotes, qtdPorLote);
+			retorno.put(produto.getId(), loteVendaDTO);
+			
 			if (this.loteRepository.countItensByProduct(produto.getId()) == 0) {
-				produto.mudaSituacao(2);
+				produto.setDisponivel(false);
 				this.produtoRepository.save(produto);
 			}
 		}
+		return retorno;
 	}
 
 	// RETORNA PREÇO TOTAL
