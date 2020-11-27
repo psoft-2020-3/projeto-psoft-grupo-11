@@ -21,7 +21,6 @@ import com.ufcg.psoft.util.CustomErrorType;
 import exceptions.ObjetoInvalidoException;
 import io.swagger.annotations.ApiOperation;
 
-
 @RestController
 @RequestMapping({ "/venda" })
 @CrossOrigin(value = "*")
