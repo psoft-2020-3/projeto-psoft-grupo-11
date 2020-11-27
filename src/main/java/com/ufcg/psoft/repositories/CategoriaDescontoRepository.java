@@ -6,12 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import com.ufcg.psoft.model.CategoriaDesconto;
+import com.ufcg.psoft.model.Categoria;
 
+public interface CategoriaDescontoRepository extends JpaRepository<Categoria, Long> {
 
-public interface CategoriaDescontoRepository extends JpaRepository<CategoriaDesconto, Long> {
-
-	CategoriaDesconto findByCategoria(String categoria);
+	Categoria findByCategoria(String categoria);
 
 	@Transactional
 	@Modifying
