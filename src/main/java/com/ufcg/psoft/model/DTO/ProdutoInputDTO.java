@@ -12,8 +12,6 @@ public class ProdutoInputDTO {
 
 	private Long id_categoria;
 
-	public int situacao;
-
 	public String getNome() {
 		return nome;
 	}
@@ -52,13 +50,5 @@ public class ProdutoInputDTO {
 
 	public void setId_categoria(Long id_categoria) {
 		this.id_categoria = id_categoria;
-	}
-
-	public int getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(int situacao) {
-		this.situacao = situacao;
 	}
 }
