@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ufcg.psoft.model.CategoriaDesconto;
+import com.ufcg.psoft.model.Categoria;
 import com.ufcg.psoft.service.CategoriaDescontoService;
 import com.ufcg.psoft.util.CustomErrorType;
 
 import io.swagger.annotations.ApiOperation;
-
 
 @RestController
 @RequestMapping({ "/categoriaDesconto" })
@@ -28,10 +27,10 @@ public class CategoriaDescontoController {
 
 	@RequestMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@ApiOperation(value = "Adiciona desconto à uma categoria")
-	public ResponseEntity<?> save(@RequestBody CategoriaDesconto categoriaDesconto) {
+	public ResponseEntity<?> save(@RequestBody Categoria categoriaDesconto) {
 		try {
-			CategoriaDesconto categoriaDescontoSalva = this.categoriaDescontoService.save(categoriaDesconto);
-			return new ResponseEntity<CategoriaDesconto>(categoriaDescontoSalva, HttpStatus.CREATED);
+			Categoria categoriaDescontoSalva = this.categoriaDescontoService.save(categoriaDesconto);
+			return new ResponseEntity<Categoria>(categoriaDescontoSalva, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<CustomErrorType>(new CustomErrorType(e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
@@ -41,9 +40,9 @@ public class CategoriaDescontoController {
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
 	public ResponseEntity<?> update(@RequestParam String categoria, @RequestParam String desconto) {
 		try {
-			CategoriaDesconto categoriaDesconto = this.categoriaDescontoService.update(categoria, desconto);
+			Categoria categoriaDesconto = this.categoriaDescontoService.update(categoria, desconto);
 
-			return new ResponseEntity<CategoriaDesconto>(categoriaDesconto, HttpStatus.OK);
+			return new ResponseEntity<Categoria>(categoriaDesconto, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<CustomErrorType>(new CustomErrorType(e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
