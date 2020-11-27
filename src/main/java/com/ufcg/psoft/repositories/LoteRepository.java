@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.ufcg.psoft.model.Lote;
 import com.ufcg.psoft.model.Produto;
 
-
 public interface LoteRepository extends JpaRepository<Lote, Long> {
 	List<Lote> findByProduto(Produto produto);
 
@@ -16,4 +15,10 @@ public interface LoteRepository extends JpaRepository<Lote, Long> {
 
 	@Query(value = "SELECT SUM(numero_de_itens) FROM Lote WHERE id_produto = ?1", nativeQuery = true)
 	Integer countItensByProduct(Long idProduto);
+
+	@Query(value = "SELECT COUNT(*) FROM Lote WHERE id_produto = ?1", nativeQuery = true)
+	Integer countlotesByProduct(long id);
+
+	@Query(value = "SELECT data_de_validade FROM Lote WHERE id_produto = ?1", nativeQuery = true)
+	List<String> findValidadesPorProduto(long id);
 }
