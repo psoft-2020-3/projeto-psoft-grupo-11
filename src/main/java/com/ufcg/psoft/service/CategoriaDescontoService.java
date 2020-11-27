@@ -1,11 +1,10 @@
 package com.ufcg.psoft.service;
 
-import com.ufcg.psoft.model.CategoriaDesconto;
-
+import com.ufcg.psoft.model.Categoria;
 
 public interface CategoriaDescontoService {
 
-	CategoriaDesconto save(CategoriaDesconto categoriaDesconto);
+	Categoria save(Categoria categoriaDesconto);
 	
-	CategoriaDesconto update(String categoria, String desconto) throws Exception;
+	Categoria update(String categoria, String desconto) throws Exception;
 }
