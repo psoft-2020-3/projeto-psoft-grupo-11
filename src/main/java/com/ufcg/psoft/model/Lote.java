@@ -1,8 +1,17 @@
 package com.ufcg.psoft.model;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
+@Entity
 public class Lote {
-
+	@Id
+	@GeneratedValue
     private long id;
+	@OneToOne
+	@JoinColumn(name = "id_produto", referencedColumnName = "id")
     private Produto produto;
     private int numeroDeItens;
     private String dataDeValidade;
