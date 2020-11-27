@@ -8,10 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 // DESCONTO DA CATEGORIA DO PRODUTO
 @Entity
-public class CategoriaDesconto {
+public class Categoria {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +22,11 @@ public class CategoriaDesconto {
 	@Enumerated(EnumType.STRING)
 	private TipoDesconto desconto;
 	
-	public CategoriaDesconto() {
+	public Categoria() {
 		
 	}
 
-	public CategoriaDesconto(String categoria, TipoDesconto desconto) {
+	public Categoria(String categoria, TipoDesconto desconto) {
 		super();
 		this.categoria = categoria;
 		this.desconto = desconto;
