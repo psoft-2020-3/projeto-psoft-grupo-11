@@ -1,3 +1,5 @@
+package com.ufcg.psoft.service;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,7 @@ import com.ufcg.psoft.model.Lote;
 import com.ufcg.psoft.model.Produto;
 import com.ufcg.psoft.model.Venda;
 import com.ufcg.psoft.model.VendaProduto;
+import com.ufcg.psoft.model.DTO.LoteVendaDTO;
 import com.ufcg.psoft.model.DTO.VendaInputDTO;
 import com.ufcg.psoft.repositories.LoteRepository;
 import com.ufcg.psoft.repositories.ProdutoRepository;
@@ -32,7 +35,7 @@ public class VendaServiceImpl implements VendaService {
 
 	@Autowired
 	VendaProdutoRepository vendaProdutoRepository;
-	
+
 	@Autowired
 	VendaHelper helper;
 
@@ -45,7 +48,7 @@ public class VendaServiceImpl implements VendaService {
 		if (this.helper.verificaDisponibilidade(dadosDaVenda.keySet()) == false) {
 			throw new Exception("Algum produto não disponível");
 		}
-		
+
 		// VERIFICO SE TODOS OS PRODUTOS TEM QTD SUFICIENTE
 		if (this.helper.verificaQuantidades(dadosDaVenda) == false) {
 			throw new Exception("Alguma quantidade não disponível");
@@ -53,14 +56,14 @@ public class VendaServiceImpl implements VendaService {
 
 		// RECUPERA PRODUTOS DA VENDA
 		List<Produto> produtosDaVenda = this.produtoRepository.findAllById(dadosDaVenda.keySet());
-		
+
 		// DECREMENTA PRODUTO DOS LOTES
-		this.helper.retiraProdutos(produtosDaVenda, dadosDaVenda);
+		Map<Long, LoteVendaDTO> lotesUsados = this.helper.retiraProdutos(produtosDaVenda, dadosDaVenda);
 
 		BigDecimal total = this.helper.calcularPreco(dadosDaVenda);
 
-		List<VendaProduto> itensVenda = this.helper.criarVendaProduto(venda.getDadosDaVenda());
-		
+		List<VendaProduto> itensVenda = this.helper.criarVendaProduto(venda.getDadosDaVenda(), lotesUsados);
+
 		Venda vendaFinal = new Venda(itensVenda, total);
 		Venda retorno = this.vendaRepository.save(vendaFinal);
 
@@ -77,27 +80,26 @@ public class VendaServiceImpl implements VendaService {
 	@Override
 	public void delete(Long idVenda) throws ObjetoInvalidoException {
 		List<VendaProduto> produtosVenda = this.vendaProdutoRepository.findAllByIdVenda(idVenda);
-		List<Lote> lotesProduto;
 		Lote lote;
 		VendaProduto vendaProduto;
-		
+
 		for (int i = 0; i < produtosVenda.size(); i++) {
 			vendaProduto = produtosVenda.get(i);
-			lotesProduto = this.loteRepository.findAllByProduto(vendaProduto.getProduto());
-			lote = lotesProduto.get(0);
-			lote.setNumeroDeItens(lote.getNumeroDeItens() + vendaProduto.getQuantidade());
-			this.loteRepository.save(lote);
-			
-			if (this.loteRepository.countItensByProduct(vendaProduto.getProduto().getId()) != 0) {
-				Produto produto = this.produtoRepository.findById(vendaProduto.getProduto().getId()).get();
-				produto.mudaSituacao(1);
-				this.produtoRepository.save(produto);
+			for (int j = 0; j < vendaProduto.getLotes().size(); j++) {
+				lote = this.loteRepository.findById(vendaProduto.getLotes().get(j)).get();
+				lote.setNumeroDeItens(lote.getNumeroDeItens() + vendaProduto.getQtdPorLote().get(j));
+				this.loteRepository.save(lote);
+
 			}
+
+			Produto produto = this.produtoRepository.findById(vendaProduto.getProduto().getId()).get();
+			produto.setDisponivel(true);
+			this.produtoRepository.save(produto);
 		}
-		
+
 		this.vendaRepository.deleteById(idVenda);
 	}
-	
+
 	// ORDENAR PRODUTOS POR INFORMACOES IMPORTANTES
 	@Override
 	public List<Venda> findAllOrdered(String field) {
