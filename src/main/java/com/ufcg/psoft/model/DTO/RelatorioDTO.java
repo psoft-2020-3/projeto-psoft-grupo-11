@@ -11,6 +11,8 @@ public class RelatorioDTO {
 	
 	private List<Venda> vendas;
 	
+	private List<LotesQuantidadesDTO> produtos;
+	
 	public RelatorioDTO() {
 		
 	}
@@ -35,5 +37,13 @@ public class RelatorioDTO {
 
 	public void setVendas(List<Venda> vendas) {
 		this.vendas = vendas;
+	}
+
+	public List<LotesQuantidadesDTO> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<LotesQuantidadesDTO> produtos) {
+		this.produtos = produtos;
 	}
 }
