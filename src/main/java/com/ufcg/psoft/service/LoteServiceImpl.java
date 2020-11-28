@@ -138,20 +138,20 @@ public class LoteServiceImpl implements LoteService {
 		return retorno;
 	}
 
-	public List<Produto> verificaStatusProdutos() throws Exception {
+	public void verificaStatusProdutos() throws Exception {
 		List<Produto> produtos = produtoService.findAll();
-		List<Produto> retorno = new ArrayList<Produto>();
 		if (produtos.isEmpty())
 			throw new ObjetoInexistenteException("Nenhum produto cadastrado");
 		for (Produto produto : produtos) {
-			List<Lote> lotes = findAllLotesValidos(produto);
-			if (lotes.isEmpty()) {
-				produtoService.invalidarProduto(produto);
-			}else {
-				retorno.add(produto);
+			try {
+				List<Lote> lotes = findAllLotesValidos(produto);
+				if (lotes.isEmpty())
+					produtoService.invalidarProduto(produto);
+
+			} catch (Exception e) {
+				throw new Exception(e.getMessage());
 			}
 		}
-		return retorno;
 	}
 
 	private List<Lote> findAllLotesValidos(Produto produto) throws Exception {
