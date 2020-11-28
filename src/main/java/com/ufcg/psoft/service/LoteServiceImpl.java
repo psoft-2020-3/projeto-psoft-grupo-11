@@ -145,7 +145,7 @@ public class LoteServiceImpl implements LoteService {
 		for (Produto produto : produtos) {
 			List<Lote> lotes = findAllLotesValidos(produto);
 			if (lotes.isEmpty()) {
-				produtoService.invalidarProduto(produto);
+				//produtoService.invalidarProduto(produto);
 			}
 		}
 	}
