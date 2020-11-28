@@ -1,14 +1,14 @@
 package com.ufcg.psoft.user;
 
-import lombok.*;
+//import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Builder
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+//@Getter
+//@Builder
+//@Setter
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Table(name = "user_client")
 public class User {
 
