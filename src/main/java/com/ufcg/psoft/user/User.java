@@ -39,13 +39,13 @@ public class User {
 		this.accessToken = accessToken;
 	}
 
-	public User(String username, String password, String name, boolean admin, String accessToken) {
+	/*public User(String username, String password, String name, boolean admin, String accessToken) {
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.admin = admin;
 		this.accessToken = accessToken;
-	}
+	}*/
 
 	public Long getId() {
 		return id;
