@@ -4,11 +4,9 @@ package com.ufcg.psoft.user;
 import javax.persistence.*;
 
 @Entity
-//@Getter
-//@Builder
-//@Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
+/*@Getter
+@Builder
+@Setter*/
 @Table(name = "user_client")
 public class User {
 
@@ -36,7 +34,7 @@ public class User {
 		this.password = password;
 		this.name = name;
 		this.admin = admin;
-		this.accessToken = accessToken;
+		//this.accessToken = accessToken;
 	}
 
 	/*public User(String username, String password, String name, boolean admin, String accessToken) {
