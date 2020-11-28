@@ -22,7 +22,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	@Query(value = "SELECT nome, Cast('N/A' as varchar) as preco, Cast('Indisponível' as varchar) as disponivel FROM Produto WHERE disponivel = false", nativeQuery = true)
 	List<PrecoSituacaoDTO> findPriceAndSituationUnavailable();
 	
-	// PRODUTOS INDISPONIVEIS
+	// PRIDUTOS INDISPONIVEIS
 	@Query(value = "SELECT * FROM Produto WHERE disponivel = false", nativeQuery = true)
 	List<Produto> findAllUnavailable();
 	

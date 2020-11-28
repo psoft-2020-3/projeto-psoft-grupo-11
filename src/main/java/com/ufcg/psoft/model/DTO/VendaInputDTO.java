@@ -3,7 +3,6 @@ package com.ufcg.psoft.model.DTO;
 import java.util.HashMap;
 import java.util.Map;
 
-
 // CRIAR VENDA
 public class VendaInputDTO {
 	private Map<Long, Integer> dadosDaVenda = new HashMap<>();

@@ -13,7 +13,6 @@ import com.ufcg.psoft.model.Produto;
 
 import exceptions.ObjetoInvalidoException;
 
-
 @Entity
 public class Produto {
 
@@ -31,12 +30,9 @@ public class Produto {
 
 	@OneToOne
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id")
-	private CategoriaDesconto categoria;
+	private Categoria categoria;
 
-	public int situacao; // usa variaveis estaticas abaixo
-	/* situacoes do produto */
-	public static final int DISPONIVEL = 1;
-	public static final int INDISPONIVEL = 2;
+	public Boolean disponivel;
 
 	public Produto() {
 		this.id = 0;
@@ -44,14 +40,14 @@ public class Produto {
 	}
 
 	public Produto(String nome, Double preco, String codigoBarra, String fabricante,
-			CategoriaDesconto categoria, int situacao) throws ObjetoInvalidoException {
+			Categoria categoria) throws ObjetoInvalidoException {
 		super();
 		this.nome = nome;
 		this.preco = new BigDecimal(preco);
 		this.codigoBarra = codigoBarra;
 		this.fabricante = fabricante;
 		this.categoria = categoria;
-		this.mudaSituacao(situacao);
+		this.disponivel = false;
 	}
 
 	public long getId() {
@@ -95,30 +91,20 @@ public class Produto {
 		this.codigoBarra = codigoBarra;
 	}
 
-	public CategoriaDesconto getCategoria() {
+	public Categoria getCategoria() {
 		return this.categoria;
 	}
 
-	public void mudaCategoria(CategoriaDesconto categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-		
-	public void mudaSituacao(int situacao) throws ObjetoInvalidoException {
-		switch (situacao) {
-		case 1:
-			this.situacao = Produto.DISPONIVEL;
-			break;
-		case 2:
-			this.situacao = Produto.INDISPONIVEL;
-			break;
 
-		default:
-			throw new ObjetoInvalidoException("Situacao Invalida");
-		}
+	public Boolean getDisponivel() {
+		return disponivel;
 	}
 
-	public int getSituacao() throws ObjetoInvalidoException {
-		return this.situacao;
+	public void setDisponivel(Boolean disponivel) {
+		this.disponivel = disponivel;
 	}
 
 	@Override

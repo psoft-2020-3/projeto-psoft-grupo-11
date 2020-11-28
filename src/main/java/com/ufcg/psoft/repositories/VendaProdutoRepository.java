@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ufcg.psoft.model.VendaProduto;
 
-
 @Repository
 public interface VendaProdutoRepository extends JpaRepository<VendaProduto, Long> {
 

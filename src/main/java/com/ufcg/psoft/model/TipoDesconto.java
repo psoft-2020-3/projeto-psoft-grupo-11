@@ -1,6 +1,5 @@
 package com.ufcg.psoft.model;
 
-
 public enum TipoDesconto {
 	SEM_DESCONTO("Sem desconto", 0), BOM_DESCONTO("Bom desconto", 10), OTIMO_DESCONTO("Ótimo desconto",
 			25), SUPER_DESCONTO("Super Desconto", 50);

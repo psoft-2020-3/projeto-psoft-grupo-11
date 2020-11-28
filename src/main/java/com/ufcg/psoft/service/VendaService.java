@@ -7,13 +7,12 @@ import com.ufcg.psoft.model.DTO.VendaInputDTO;
 
 import exceptions.ObjetoInvalidoException;
 
-
 public interface VendaService {
 
 	List<Venda> findAll();
-	
+
 	Venda save(VendaInputDTO venda) throws Exception;
-	
+
 	void delete(Long idVenda) throws ObjetoInvalidoException;
 
 	List<Venda> findAllOrdered(String field);
