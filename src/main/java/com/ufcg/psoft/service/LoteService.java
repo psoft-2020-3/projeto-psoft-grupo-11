@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.ufcg.psoft.model.Lote;
-import com.ufcg.psoft.model.Produto;
 import com.ufcg.psoft.model.DTO.LoteInputDTO;
 
 import exceptions.ObjetoInexistenteException;
@@ -15,7 +14,7 @@ public interface LoteService {
 	
 	List<Lote> findAllLotesByProduto(Long idProduto) throws ObjetoInexistenteException;
 	
-	List<Lote> findAllLotesByProdutoDentroDaValidade(Produto produto) throws ObjetoInexistenteException;
+	List<Lote> findAllLotesComPoucaValidade() throws Exception;
 
 	Lote findById(long id) throws ObjetoInexistenteException;
 
@@ -27,5 +26,5 @@ public interface LoteService {
 
 	Iterator<Lote> getIterator();
 
-	Lote save(LoteInputDTO lote);
+	Lote save(LoteInputDTO lote) throws Exception;
 }

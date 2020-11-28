@@ -12,6 +12,7 @@ import com.ufcg.psoft.model.DTO.ProdutoInputDTO;
 import com.ufcg.psoft.repositories.CategoriaDescontoRepository;
 import com.ufcg.psoft.repositories.ProdutoRepository;
 
+import exceptions.ObjetoInexistenteException;
 import exceptions.ObjetoInvalidoException;
 
 import com.ufcg.psoft.model.Categoria;
@@ -40,6 +41,10 @@ public class ProdutoServiceImpl implements ProdutoService {
 		Produto produto = new Produto(produtoDTO.getNome(), produtoDTO.getPreco(), produtoDTO.getCodigoBarra(), produtoDTO.getFabricante(), categoria);
 		produto = this.produtoRepository.save(produto);
 
+		return produto;
+	}
+	public Produto save(Produto produto) throws ObjetoInvalidoException {
+		produto = this.produtoRepository.save(produto);
 		return produto;
 	}
 
@@ -77,6 +82,14 @@ public class ProdutoServiceImpl implements ProdutoService {
 	public List<Produto> findAllUnavailable() {
 		List<Produto> produtos = produtoRepository.findAllUnavailable();
 		return produtos;
+	}
+
+	public void invalidarProduto(Produto produto) throws ObjetoInexistenteException {
+		Optional<Produto> produtoPesquisado = produtoRepository.findById(produto.getId());
+		if(produtoPesquisado.isEmpty())
+			throw new ObjetoInexistenteException("Produto não cadastrado");
+		produto.setDisponivel(false);
+		produtoRepository.save(produto);
 	}
 
 }
