@@ -14,19 +14,19 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
 	// ● Eu, como cliente, gostaria de consultar a disponibilidade e o preço de cada
 	// produto do supermercado (não precisa estar logado)
-	@Query(value = "SELECT nome, preco, Cast('Disponível' as varchar) as situacao FROM Produto WHERE situacao = 1", nativeQuery = true)
+	@Query(value = "SELECT nome, preco, Cast('Disponível' as varchar) as disponivel FROM Produto WHERE disponivel = true", nativeQuery = true)
 	List<PrecoSituacaoDTO> findPriceAndSituationAvailable();
 	
 	// ● Eu, como cliente, gostaria de consultar a disponibilidade e o preço de cada
 	// produto do supermercado (não precisa estar logado)
-	@Query(value = "SELECT nome, Cast('N/A' as varchar) as preco, Cast('Indisponível' as varchar) as situacao FROM Produto WHERE situacao = 2", nativeQuery = true)
+	@Query(value = "SELECT nome, Cast('N/A' as varchar) as preco, Cast('Indisponível' as varchar) as disponivel FROM Produto WHERE disponivel = false", nativeQuery = true)
 	List<PrecoSituacaoDTO> findPriceAndSituationUnavailable();
 	
 	// PRIDUTOS INDISPONIVEIS
-	@Query(value = "SELECT * FROM Produto WHERE situacao = 2", nativeQuery = true)
+	@Query(value = "SELECT * FROM Produto WHERE disponivel = false", nativeQuery = true)
 	List<Produto> findAllUnavailable();
 	
-	@Query(value = "SELECT * FROM Produto WHERE situacao = 1 AND id IN ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM Produto WHERE disponivel = true AND id IN ?1", nativeQuery = true)
 	List<Produto> findProductsCompra(List<Long> ids);
 
 }

@@ -22,7 +22,6 @@ import com.ufcg.psoft.util.CustomErrorType;
 import exceptions.ObjetoInvalidoException;
 import io.swagger.annotations.ApiOperation;
 
-
 @RestController
 @RequestMapping({ "/produto" })
 @CrossOrigin(value = "*")
@@ -31,7 +30,6 @@ public class ProdutoController {
 	@Autowired
 	ProdutoServiceImpl produtoService;
 
-	
 	@RequestMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	@ApiOperation(value = "Insere um produto")
 	public ResponseEntity<Produto> save(@RequestBody ProdutoInputDTO produto) throws ObjetoInvalidoException {
@@ -39,7 +37,6 @@ public class ProdutoController {
 		return new ResponseEntity<Produto>(produtoSalvo, HttpStatus.CREATED);
 	}
 
-	
 	// ● Eu, como cliente, gostaria de consultar a disponibilidade e o preço de cada
 	// produto do supermercado (não precisa estar logado)
 	@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
@@ -49,7 +46,6 @@ public class ProdutoController {
 		return new ResponseEntity<List<PrecoSituacaoDTO>>(produtos, HttpStatus.OK);
 	}
 
-	
 	// ORDENAR PRODUTOS POR INFORMACOES IMPORTANTES
 	@RequestMapping(value = "/orderBy/{field}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	@ApiOperation(value = "Retorna todos os produtos ordenados pelo parametro passado")
@@ -58,8 +54,7 @@ public class ProdutoController {
 		return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK);
 	}
 
-	
-	// PRODUTOS INDISPONIVEIS
+	// PRIDUTOS INDISPONIVEIS
 	@RequestMapping(value = "/unavailable", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	@ApiOperation(value = "Retorna todos os produtos indisponiveis (lista de indisponiveis)")
 	public ResponseEntity<List<Produto>> findAllUnavailable() {
@@ -67,8 +62,6 @@ public class ProdutoController {
 		return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK);
 	}
 
-	
-	
 	@RequestMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	@ApiOperation(value = "Retorna um produto pelo id")
 	public ResponseEntity<?> findById(@PathVariable Long id) {

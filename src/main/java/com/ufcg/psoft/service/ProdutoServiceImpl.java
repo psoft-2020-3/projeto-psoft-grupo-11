@@ -14,9 +14,8 @@ import com.ufcg.psoft.repositories.ProdutoRepository;
 
 import exceptions.ObjetoInvalidoException;
 
-import com.ufcg.psoft.model.CategoriaDesconto;
+import com.ufcg.psoft.model.Categoria;
 import com.ufcg.psoft.model.Produto;
-
 
 @Service
 public class ProdutoServiceImpl implements ProdutoService {
@@ -37,8 +36,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 	@Override
 	public Produto save(ProdutoInputDTO produtoDTO) throws ObjetoInvalidoException {
-		CategoriaDesconto categoria = this.categoriaDescontoRepository.findById(produtoDTO.getId_categoria()).get();
-		Produto produto = new Produto(produtoDTO.getNome(), produtoDTO.getPreco(), produtoDTO.getCodigoBarra(), produtoDTO.getFabricante(), categoria, produtoDTO.getSituacao());
+		Categoria categoria = this.categoriaDescontoRepository.findById(produtoDTO.getId_categoria()).get();
+		Produto produto = new Produto(produtoDTO.getNome(), produtoDTO.getPreco(), produtoDTO.getCodigoBarra(), produtoDTO.getFabricante(), categoria);
 		produto = this.produtoRepository.save(produto);
 
 		return produto;
