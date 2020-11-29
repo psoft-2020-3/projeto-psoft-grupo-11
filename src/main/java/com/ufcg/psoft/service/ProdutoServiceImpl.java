@@ -86,7 +86,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 	public Produto invalidarProduto(Produto produto) throws ObjetoInexistenteException {
 		Optional<Produto> produtoPesquisado = produtoRepository.findById(produto.getId());
-		if(produtoPesquisado.isEmpty())
+		if(!produtoPesquisado.isPresent())
 			throw new ObjetoInexistenteException("Produto não cadastrado");
 		produto.setDisponivel(false);
 		produtoRepository.save(produto);
