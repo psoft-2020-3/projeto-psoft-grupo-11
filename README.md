@@ -20,6 +20,12 @@ http://localhost:8080/swagger-ui.html
 
 ● Eu, como administrador, gostaria de logar no sistema, para ter acesso às funcionalidades destinadas ao administrador.
 
+● Eu, como administrador, gostaria que um produto fosse marcado como indisponível quando todos os lotes do produto ultrapassarem a data de validade. Dessa forma, o seu preço não pode ser mais exibido para os clientes e ele deve ser adicionado na lista de produtos vencidos.
+
+● Eu, como administrador, gostaria de acessar informações sobre quais itens de um produto estão em baixa (abaixo de 15 unidades).
+
+● Eu, como administrador, gostaria de acessar informações sobre quais os lotes estão próximos do vencimento (um mês de antecedência).
+
 ● Eu, como administrador, gostaria de acessar o sistema através de um link na web, preferencialmente usando o Heroku (outras opções de deploy podem ser usadas).
 
 ● Eu, como cliente, gostaria de logar no sistema, para poder ter acesso às funcionalidades destinadas ao cliente.
