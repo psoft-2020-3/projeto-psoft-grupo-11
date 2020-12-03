@@ -1,25 +1,28 @@
 package com.ufcg.psoft.service;
 
-import java.util.Iterator;
 import java.util.List;
 
 import com.ufcg.psoft.model.Produto;
+import com.ufcg.psoft.model.DTO.PrecoSituacaoDTO;
+import com.ufcg.psoft.model.DTO.ProdutoInputDTO;
+
+import exceptions.ObjetoInvalidoException;
 
 public interface ProdutoService {
 
-	List<Produto> findAllProdutos();
-
-	void saveProduto(Produto produto);
+	List<Produto> findAll();
 
 	Produto findById(long id);
 
-	void updateProduto(Produto user);
+	List<Produto> findAllOrdered(String field);
 
-	void deleteProdutoById(long id);
+	List<PrecoSituacaoDTO> findPriceAndSituation();
 
-	int size();
+	Produto save(ProdutoInputDTO produtoDTO) throws ObjetoInvalidoException;
 
-	Iterator<Produto> getIterator();
-
-	boolean doesProdutoExist(Produto produto);
+//	void updateProduto(Produto user);
+//
+//	void deleteProdutoById(long id);
+//
+//	boolean doesProdutoExist(Produto produto);
 }
